@@ -4,8 +4,12 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon ./server/server.js",
+    "build": "cd client && npm run build",
+    "install-client": "cd client && npm install",
+    "start": "node server/server.js",
     "dev": "env-cmd ./config/dev.env nodemon",
+    "server": "nodemon server.js",
+    "heroku-postbuild": "npm run install-client && npm run build",
     "test": "jest --watchAll --coverage --verbose --silent --runInBand --env node",
     "testToFile": "jest --json --outputFile=ans.json",
     "windowsTest": "tape ./__test__/*.test.js"

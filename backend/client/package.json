@@ -32,13 +32,11 @@
     "web-vitals": "^1.1.2"
   },
   "scripts": {
-    "start": "node backend/server/server.js",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "heroku-postbuild": "npm install npm && run build",
     "eject": "react-scripts eject"
   },
-  
   "eslintConfig": {
     "extends": [
       "react-app",
