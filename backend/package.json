@@ -5,11 +5,10 @@
   "main": "server.js",
   "scripts": {
     "build": "cd client && npm run build",
-    "install-client": "cd client && npm install",
     "start": "node server/server.js",
     "dev": "env-cmd ./config/dev.env nodemon",
-    "server": "nodemon server.js",
-    "heroku-postbuild": "npm run install-client && npm run build",
+    "server": "node server.js",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client",
     "test": "jest --watchAll --coverage --verbose --silent --runInBand --env node",
     "testToFile": "jest --json --outputFile=ans.json",
     "windowsTest": "tape ./__test__/*.test.js"
