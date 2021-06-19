@@ -478,8 +478,11 @@ export default function Tender_Table(props) {
     const [records, setRecords] = React.useState(data);
     const classes = useStyles();
 
+
+
     React.useEffect(async () => {
         console.log(data);
+
         const d = await getData(props);
         setData(d.data);
         setRecords(d.data);
@@ -585,7 +588,7 @@ export default function Tender_Table(props) {
 
                     <Form onSubmit={handleSubmit}>
                         <Grid container align="center">
-                            <Grid item xs={6}>
+                            <Grid item xs={4}>
                                 <Input
                                     name="tenderName"
                                     label="Tender Name"
@@ -617,6 +620,8 @@ export default function Tender_Table(props) {
                                     onChange={handleInputChange}
                                     error={errors.ePublishedDate}
                                 />
+                            </Grid>
+                            <Grid item xs={4}>
 
                                 <Input
                                     id="bidSubmissionDate"
@@ -631,8 +636,23 @@ export default function Tender_Table(props) {
                                     onChange={handleInputChange}
                                     error={errors.bidSubmissionDate}
                                 />
-                            </Grid>
-                            <Grid item xs={6}>
+
+
+                                <FormControl variant="outlined" className={classes.formControl}>
+                                    <InputLabel htmlFor="outlined-productCategory-native-simple">Product Category</InputLabel>
+                                    <Select
+                                        native
+                                        value={values.productCategory}
+                                        onChange={handleInputChange}
+                                        label="Product Category"
+                                        inputProps={{
+                                            name: 'productCategory',
+                                            id: 'outlined-productCategory-native-simple',
+                                        }}
+                                    >{productCatList.map(item => <option key={item.key} value={item.item}>{item.item}</option>)}
+                                    </Select>
+                                </FormControl>
+
                                 <FormControl variant="outlined" className={classes.formControl}>
                                     <InputLabel htmlFor="outlined-tenderType-native-simple">Tender Type</InputLabel>
                                     <Select
@@ -647,6 +667,15 @@ export default function Tender_Table(props) {
                                     >{tenderTypeList.map(item => <option key={item.key} value={item.item}>{item.item}</option>)}
                                     </Select>
                                 </FormControl>
+
+
+
+
+
+                            </Grid>
+
+                            <Grid item xs={4}>
+
                                 <FormControl variant="outlined" className={classes.formControl}>
                                     <InputLabel htmlFor="outlined-organisationName-native-simple">Organisation Name</InputLabel>
                                     <Select
@@ -674,33 +703,39 @@ export default function Tender_Table(props) {
                                         }}
                                     >{tenderCatList.map(item => <option key={item.key} value={item.item}>{item.item}</option>)}
                                     </Select>
-                                </FormControl>
-                                <FormControl variant="outlined" className={classes.formControl}>
-                                    <InputLabel htmlFor="outlined-productCategory-native-simple">Product Category</InputLabel>
-                                    <Select
-                                        native
-                                        value={values.productCategory}
-                                        onChange={handleInputChange}
-                                        label="Product Category"
-                                        inputProps={{
-                                            name: 'productCategory',
-                                            id: 'outlined-productCategory-native-simple',
-                                        }}
-                                    >{productCatList.map(item => <option key={item.key} value={item.item}>{item.item}</option>)}
-                                    </Select>
+
                                 </FormControl>
 
-                                <div align="center">
-                                    <Button
-                                        type="submit"
-                                        text="Search" />
-                                    <Button
-                                        text="Reset"
-                                        color="default"
-                                        onClick={resetForm} />
-                                </div>
+
+
+                                {props.auth.user.role === "admin" &&
+                                    <FormControl variant="outlined" className={classes.formControl}>
+                                        <InputLabel htmlFor="outlined-productCategory-native-simple">Assign to</InputLabel>
+                                        <Select
+                                            native
+                                            value={values.productCategory}
+                                            onChange={handleInputChange}
+                                            label="Assign to"
+                                            inputProps={{
+                                                name: 'productCategory',
+                                                id: 'outlined-productCategory-native-simple',
+                                            }}
+                                        >
+                                            <option></option>
+                                            <option>users ID</option>
+                                        </Select>
+                                    </FormControl>}
                             </Grid>
                         </Grid>
+                        <div align="center">
+                            <Button
+                                type="submit"
+                                text="Search" />
+                            <Button
+                                text="Reset"
+                                color="default"
+                                onClick={resetForm} />
+                        </div>
                     </Form>
 
                 </Grid>
